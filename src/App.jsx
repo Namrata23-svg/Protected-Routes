@@ -1,6 +1,6 @@
 import React ,{ useState } from 'react'
 import './App.css'
-import {Routes,BrowserRouter as Router, Navigate,Route} from "react-router-dom"
+import {Routes,BrowserRouter , Navigate,Route} from "react-router-dom"
 import Loginpage from './Components/Loginpage'
 import Dashboard from './Components/Dashboard'
 
@@ -10,25 +10,46 @@ class App extends React.Component{
   constructor(props){
     super(props)
     const isLoggedin = localStorage.getItem('isloggedin') === 'true';
+  
     this.state = {
       isLoggedin: isLoggedin,
+    
        
     }
 }
 
-// componentDidMount() {
+componentDidMount() {
+  const isLoggedin = localStorage.getItem('isloggedin') === 'true';
+  console.log("isLoggedIn in componentDidMount", isLoggedin);
+  
  
-//   const isLoggedIn = localStorage.getItem('isloggedin') === 'true'; 
-//   this.setState({ isLoggedin: isLoggedIn });
-// }
+  if (this.state.isLoggedin !== isLoggedin) {
+    this.setState({isLoggedin});
+  
+    
+  }
+}
+
+
+componentDidUpdate(prevProp, prevState){
+  const isloggedin = localStorage.getItem('isloggedin');
+
+  console.log("inside update");
+  if(isloggedin === 'true' && prevState.isLoggedin !== this.state.isLoggedin){
+    
+    this.setState({isLoggedin: true})
+  }
+}
 
   render() {
     //  const isLoggedin = localStorage.getItem('isloggedin');
     const{isLoggedin}=this.state;
+
+    
       return(
         
   <div>
-    <Router>
+    <BrowserRouter>
         <Routes>
 
         {/* <Route path="/login" element={<Loginpage/>}/>
@@ -39,12 +60,14 @@ class App extends React.Component{
           <Route
             path="/dashboard"
             element={ isLoggedin ? <Dashboard/> : <Navigate to ="/login" />}
+            // element={<Dashboard/>}
+
           />
 
          
           {/* <Route path="/" element={<Navigate to="/login" />} /> */}
         </Routes>
-      </Router>
+      </BrowserRouter>
   {/* <BrowserRouter>
   <Routes> 
     <Route>

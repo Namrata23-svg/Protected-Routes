@@ -43,23 +43,26 @@ class Dashboard extends React.Component{
         })
       }
     componentDidMount(){
-        this.fetchData()
+        // this.fetchData()
         
         if (localStorage.getItem('isloggedin') === 'true') {
-            this.setState({ login: false });
+            this.setState({ login: false },this.fetchData());
         } else {
             this.setState({ login: true });
         }
     
      
     }
+
+    
 logout=()=>{
   
     localStorage.removeItem('isloggedin')
     localStorage.removeItem('username')
     localStorage.removeItem('password')
-     this.setState({isloggedin:false})
-    this.setState({login:true})
+    //  this.setState({isloggedin:false})
+    // this.setState({login:true})
+    this.setState({ login: true });
 }
 render(){
     const{data,error,login}=this.state;

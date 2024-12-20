@@ -13,7 +13,9 @@ class Loginpage extends React.Component{
     }
 componentDidMount(){
     if(localStorage.getItem('isloggedin')==='true' && localStorage.getItem('username') && localStorage.getItem('password')){
+        
 this.setState({dashboard:true})
+console.log("users")
     }
 }
 
@@ -27,6 +29,7 @@ this.setState({dashboard:true})
      localStorage.setItem('password',password)
     
      this.setState({dashboard:true})
+   
     }
     else{
     this.setState({error:'Invalid credentials'})
@@ -42,8 +45,12 @@ this.setState({dashboard:true})
 render() {
     const{username,password,error,dashboard}=this.state;
     if (dashboard) {
+        console.log("dashboard", dashboard);
+        
         return <Navigate to="/dashboard" />; 
+        
       }
+      
     return(
         
 <div>
